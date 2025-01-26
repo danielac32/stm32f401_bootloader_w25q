@@ -75,9 +75,10 @@ int main()
     fl_listdirectory("/");
 
     FILE *fptr;
-    char bb[64];
+    /*char bb[64];
     strcpy(bb,getUrlTargetFileBoot());
-    char *file=&bb;
+    char *file=&bb;*/
+     char *file=getUrlTargetFileBoot();
 
     if ((fptr = fopen(file,"r")) == NULL){
        //while(1){

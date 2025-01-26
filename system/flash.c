@@ -176,7 +176,7 @@ void write_flash(uint32_t addr, uint32_t data){
     FLASH->CR &= (~FLASH_CR_PG); // disable PG bit
 }
 
-
+/*
 char *getUrlTargetFileBoot(){
 	//char *s=full_path("/config/kernel");
 	FILE *fptr;
@@ -201,6 +201,25 @@ char *getUrlTargetFileBoot(){
     //b[lsize+1]=0;
 	//kprintf("%s %s\n",t,b);
 	fclose(fptr);
+    return (char *)b;
+}*/
+
+char *getUrlTargetFileBoot(){
+    //char *s=full_path("/config/kernel");
+    FILE *fptr;
+    if ((fptr = fopen("/config/kernel","r")) == NULL){
+        kprintf("Error! opening file\n");
+        kprintf("jump app\n");
+        return NULL;
+    }
+    fseek(fptr, 0, SEEK_END);
+    int lsize = ftell(fptr);
+    fseek(fptr, 0, SEEK_SET);
+    char *b= malloc(lsize+1);
+    fread(b,lsize,1, fptr);
+ 
+    //kprintf("%s %s\n",t,b);
+    fclose(fptr);
     return (char *)b;
 }
 
